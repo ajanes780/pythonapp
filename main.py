@@ -6,16 +6,18 @@ Builder.load_file('main.kv')
 
 
 class LoginScreen(Screen):
-    pass
-  
-  
+    def sign_up(self):
+        self.manager.current = "sign_up_screen"
+
 class RootWidget(ScreenManager):
     pass 
-  
+
+class SignUpScreen(Screen):
+    pass
 
 class MainApp(App):
     def build(self):
-      return RootWidget()
+        return RootWidget()
     
     
 if __name__ == "__main__":

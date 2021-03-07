@@ -4,12 +4,21 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 import json
 from datetime import datetime
 
-Builder.load_file('main.kv')
+# Builder.load_file('main.kv')
 
 
 class LoginScreen(Screen):
     def sign_up(self):
         self.manager.current = "sign_up_screen"
+
+    def login(self,u_name, p_word):
+        with open('users.json') as file:
+            users = json.load(file)
+            if u_name in users and users[u_name]['password'] == p_word:
+                self.manager.current = 'login_screen_success'
+            else:
+                self.ids.login_wrong.text = "Wrong username or password"
+            
 
 class RootWidget(ScreenManager):
     pass 
@@ -30,8 +39,14 @@ class SignUpScreen(Screen):
         
 class SignUpScreenSuccess(Screen):
     def go_to_login(self):
+        self.manager.transition.direction = 'right'
         self.manager.current = "login_screen"
-    pass
+
+class LoginScreenSuccess(Screen):
+    def go_log_out(self):
+        self.manager.transition.direction = 'right'
+        self.manager.current = 'login_screen'
+    
 
 class MainApp(App):
     def build(self):

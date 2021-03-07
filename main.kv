@@ -1,29 +1,57 @@
 #:kivy 1.0
 <LoginScreen>:
     GridLayout:
+    # this is like flex box but for a phone 
         cols: 1
+        padding: 15, 15
+        spacing: 20, 20
         GridLayout:
             cols: 1
+            
             Label:
-                text:"Please Login"
+                text:"How are you feeling today ?"
+                font_size: '20sp'
         TextInput:
             id:username
             hint_text:"User Name"
+            font_size: '20sp'
+            size_hint: 0.3 , 0.5
         TextInput:
             id:password
+            #  password makes the text hidden 
+            password: true 
             hint_text:"Password"
-        Button:
-            text:"Login"
-            on_press: root.login(root.ids.username.text, root.ids.password.text)
+            font_size: '20sp'
+            size_hint: 0.3 , 0.5
+            # realative layout if just a class made to handle the button sizing  
+        RelativeLayout:       
+            Button:
+                text:"Login"
+                on_press: root.login(root.ids.username.text, root.ids.password.text)
+                #  this says how much to reduce the button by width / hieght
+                size_hint: 0.3 , 0.5
+                # postion relative on the screen for button 
+                pos_hint: {'center_x': 0.5, 'center_y':0.6}
+                background_color: "red"
+                opacity: 1 if self.state == 'normal' else 0.5
         Label:
             id:login_wrong
             text: ""
         GridLayout:
             cols:2
+            # size hint is a relative sizing so that its dynamic .3 means 30% space 
+            size_hint: 0.3, 0.3
+          
+            spaceing: 20, 20
+
             Button:
                 text:"Forgot Password"
+                background_color: "red"
+                opacity: 1 if self.state == 'normal' else 0.5
             Button:
                 text:"Sign Up"
+                background_color: "red"
+                opacity: 1 if self.state == 'normal' else 0.5
                 on_press: root.sign_up()
 
 <SignUpScreen>
